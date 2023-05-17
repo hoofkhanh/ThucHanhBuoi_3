@@ -1,0 +1,116 @@
+package bai_3;
+
+import java.util.Objects;
+import java.util.Scanner;
+
+public class SinhVien implements Comparable<SinhVien>{
+	private String ID;
+	private String hoTen;
+	private int namSinh;
+
+	public String getID() {
+		return ID;
+	}
+
+	public void setID(String iD) {
+		ID = iD;
+	}
+
+	public String getHoTen() {
+		return hoTen;
+	}
+
+	public void setHoTen(String hoTen) {
+		this.hoTen = hoTen;
+	}
+
+	public int getNamSinh() {
+		return namSinh;
+	}
+
+	public void setNamSinh(int namSinh) {
+		this.namSinh = namSinh;
+	}
+
+	public SinhVien() {
+	}
+
+	public SinhVien(String iD, String hoTen, int namSinh) {
+		ID = iD;
+		this.hoTen = hoTen;
+		this.namSinh = namSinh;
+	}
+	
+	@Override
+	public String toString() {
+		return "SinhVien [ID=" + ID + ", hoTen=" + hoTen + ", namSinh=" + namSinh + "]";
+	}
+	
+	public void nhap() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Nhap ma sinh vien");
+		this.setID(sc.nextLine());
+		
+		System.out.println("Nhập họ và tên");
+		this.setHoTen(sc.nextLine());
+		
+		System.out.println("Nhập năm sinh");
+		this.setNamSinh(sc.nextInt());
+	}
+	
+	public void chinhSua() {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Nhập họ và tên");
+		this.setHoTen(sc.nextLine());
+		
+		System.out.println("Nhập năm sinh");
+		this.setNamSinh(sc.nextInt());
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(ID);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SinhVien other = (SinhVien) obj;
+		return Objects.equals(ID, other.ID);
+	}
+
+	@Override
+	public int compareTo(SinhVien o) {
+		return this.ID.compareTo(o.getID());
+	}
+
+	public SinhVien(String iD, String hoTen) {
+		ID = iD;
+		this.hoTen = hoTen;
+	}
+
+	public SinhVien(String iD) {
+		ID = iD;
+	}
+	
+	public String getTen() {
+		String ketQua = this.hoTen.trim();
+		if(ketQua.indexOf(" ")>=0) {
+			int vt = ketQua.indexOf(" ");
+			if(ketQua.lastIndexOf(" ") != vt) {
+				return ketQua.substring(ketQua.lastIndexOf(" ")+1);
+			}else {
+				return ketQua.substring(0,vt);
+			}
+		}else {
+			return ketQua;
+		}
+	}
+	
+}
