@@ -1,0 +1,103 @@
+package bai_3;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class DanhSachSinhVien {
+	private ArrayList<SinhVien>list;
+
+	public DanhSachSinhVien(ArrayList<SinhVien> list) {
+		this.list = list;
+	}
+	
+	public DanhSachSinhVien() {
+		this.list=new ArrayList<SinhVien>();
+	}
+	
+	public boolean them(SinhVien sv) {
+		if(this.list.contains(sv)) {
+			return false;
+		}
+		
+		this.list.add(sv);
+		return true;
+	}
+	
+	public void xuat() {
+		for (SinhVien sinhVien : list) {
+			System.out.println(sinhVien);
+		}
+	}
+	
+	public boolean xoaTheoMa(SinhVien sv) {
+		return this.list.remove(sv);
+	}
+	
+	public boolean chinhSuaThongTin(SinhVien sv) {
+		for (SinhVien sinhVien : list) {
+			if(sinhVien.getID().equals(sv.getID())) {
+				sinhVien.chinhSua();
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void sapXepTheoMaTangDan() {
+		Collections.sort(this.list);
+	}
+	
+	public SinhVien timKiem(SinhVien sv) {
+		for (SinhVien sinhVien : list) {
+			if(sinhVien.getTen().equalsIgnoreCase(sv.getTen())&& sinhVien.getID().equals(sv.getID())) {
+				return sinhVien;
+			}
+		}
+		
+		return null;
+	}
+	
+	public static void main(String[] args) {
+		int chon=0;
+		SinhVien sv;
+		DanhSachSinhVien list=new DanhSachSinhVien();
+		Scanner sc =new Scanner(System.in);
+		
+		do {
+			System.out.println("1.Thêm");
+			System.out.println("2.Xuất");
+			System.out.println("3.Xóa");
+			System.out.println("4.Sửa");
+			System.out.println("5.Tìm kiếm");
+			System.out.println("6.Sắp xếp tăng dần theo mã");
+			System.out.println("0.Thoát");
+			chon=sc.nextInt();
+			sc.nextLine();
+			
+			if(chon==1) {
+				sv =new SinhVien();
+				sv.nhap();
+				System.out.println("thêm :"+list.them(sv));
+			}else if(chon==2) {
+				list.xuat();
+			}else if(chon==3) {
+				System.out.println("Nhập mã của sinh viên muốn xóa");
+				sv =new SinhVien(sc.nextLine());
+				System.out.println("xóa : "+list.xoaTheoMa(sv));
+			}else if(chon==4) {
+				System.out.println("Nhập mã của sinh viên muốn sửa");
+				sv =new SinhVien(sc.nextLine());
+				System.out.println("sửa "+list.chinhSuaThongTin(sv));
+			}else if(chon==5) {
+				System.out.println("Nhập mã và tên");
+				sv =new SinhVien(sc.nextLine(),sc.nextLine());
+				System.out.println(list.timKiem(sv));
+				
+			}else if(chon==6) {
+				list.sapXepTheoMaTangDan();
+			}
+			
+		}while(chon!=0);
+	}
+}
